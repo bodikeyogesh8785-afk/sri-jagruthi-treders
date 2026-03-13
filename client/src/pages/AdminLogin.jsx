@@ -12,7 +12,7 @@ const AdminLogin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://sri-jagruthi-treders.onrender.com';
       const res = await axios.post(`${apiUrl}/api/auth/login`, { username, password });
       localStorage.setItem('adminToken', res.data.token);
       navigate('/admin/dashboard');
@@ -24,7 +24,7 @@ const AdminLogin = () => {
 
   // Background ping to keep Render server awake
   useEffect(() => {
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    const apiUrl = import.meta.env.VITE_API_URL || 'https://sri-jagruthi-treders.onrender.com';
     const ping = () => axios.get(apiUrl).catch(() => {});
     ping(); // Initial ping
     const interval = setInterval(ping, 60000); // Ping every 1 minute

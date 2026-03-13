@@ -16,7 +16,7 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://sri-jagruthi-treders.onrender.com';
       const prodRes = await axios.get(`${apiUrl}/api/products`);
       setProducts(prodRes.data);
       const orderRes = await axios.get(`${apiUrl}/api/orders`);
@@ -48,7 +48,7 @@ const AdminDashboard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://sri-jagruthi-treders.onrender.com';
       if (isEditing) {
         await axios.put(`${apiUrl}/api/products/${currentProduct._id}`, currentProduct);
       } else {
@@ -72,7 +72,7 @@ const AdminDashboard = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const apiUrl = import.meta.env.VITE_API_URL || 'https://sri-jagruthi-treders.onrender.com';
         await axios.delete(`${apiUrl}/api/products/${id}`);
         fetchData();
       } catch (err) {
@@ -83,7 +83,7 @@ const AdminDashboard = () => {
 
   const updateOrderStatus = async (id, status) => {
       try {
-          const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+          const apiUrl = import.meta.env.VITE_API_URL || 'https://sri-jagruthi-treders.onrender.com';
           await axios.put(`${apiUrl}/api/orders/${id}`, { status });
           fetchData();
       } catch (err) {
