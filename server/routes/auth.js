@@ -28,12 +28,12 @@ router.post('/login', async (req, res) => {
     }
 
     if (!user) {
-        return res.status(400).json({ msg: 'User not found' });
+        return res.status(400).json({ msg: `User "${username}" not found. Ensure you added ADMIN_USERNAME to Render.` });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ msg: 'Invalid Credentials' });
+       return res.status(400).json({ msg: 'Password mismatch. Check your ADMIN_PASSWORD in Render.' });
     }
 
     const payload = {

@@ -17,9 +17,19 @@ const AdminLogin = () => {
       localStorage.setItem('adminToken', res.data.token);
       navigate('/admin/dashboard');
     } catch (err) {
-      setError('Invalid username or password');
+      console.error('Login error details:', err.response?.data);
+      setError(err.response?.data?.msg || 'Connection failed: Backend might be starting up...');
     }
   };
+
+  // Background ping to keep Render server awake
+  useEffect(() => {
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    const ping = () => axios.get(apiUrl).catch(() => {});
+    ping(); // Initial ping
+    const interval = setInterval(ping, 60000); // Ping every 1 minute
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div style={{
