@@ -12,17 +12,23 @@ router.post('/login', async (req, res) => {
     // Check if user exists
     let user = await User.findOne({ username });
     
-    // For development, creates the admin user if it doesn't exist
-    if (!user && username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
-        const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, 10);
+    // Auto-create admin if it's the first time and credentials match .env
+    const envUser = process.env.ADMIN_USERNAME || 'admin';
+    const envPass = process.env.ADMIN_PASSWORD || 'admin123';
+    
+    if (!user && username === envUser && password === envPass) {
+        console.log('Creating initial admin user...');
+        const hashedPassword = await bcrypt.hash(envPass, 10);
         user = new User({
-            username: process.env.ADMIN_USERNAME,
+            username: envUser,
             password: hashedPassword,
             role: 'admin'
         });
         await user.save();
-    } else if (!user) {
-        return res.status(400).json({ msg: 'Invalid Credentials' });
+    }
+
+    if (!user) {
+        return res.status(400).json({ msg: 'User not found' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
