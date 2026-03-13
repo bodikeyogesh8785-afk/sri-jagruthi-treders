@@ -11,7 +11,8 @@ const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/products');
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const res = await axios.get(`${apiUrl}/api/products`);
         setProducts(res.data);
         setLoading(false);
       } catch (err) {
@@ -46,7 +47,11 @@ const Home = () => {
             to ensure your crops thrive and your harvest is bountiful.
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
-            <button className="btn btn-primary" style={{ backgroundColor: 'var(--secondary)', color: 'black' }}>
+            <button 
+              className="btn btn-primary" 
+              style={{ backgroundColor: 'var(--secondary)', color: 'black' }}
+              onClick={() => document.getElementById('products-section').scrollIntoView({ behavior: 'smooth' })}
+            >
               Shop Now <ArrowRight size={20} />
             </button>
             <button className="btn" style={{ border: '2px solid white', color: 'white' }}>
@@ -82,7 +87,7 @@ const Home = () => {
       </section>
 
       {/* Product Section */}
-      <section style={{ padding: '60px 0' }}>
+      <section id="products-section" style={{ padding: '60px 0' }}>
         <div className="container">
           <div style={{
             display: 'flex',

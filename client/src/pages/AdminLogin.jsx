@@ -12,7 +12,8 @@ const AdminLogin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', { username, password });
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const res = await axios.post(`${apiUrl}/api/auth/login`, { username, password });
       localStorage.setItem('adminToken', res.data.token);
       navigate('/admin/dashboard');
     } catch (err) {

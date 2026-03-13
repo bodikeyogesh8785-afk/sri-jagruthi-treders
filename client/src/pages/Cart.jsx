@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useCart } from '../context/CartContext';
 import { Trash2, Plus, Minus, Send, ShoppingBag } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -24,7 +25,8 @@ const Cart = () => {
 
     try {
       // 1. Save order to database
-      await axios.post('http://localhost:5000/api/orders', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      await axios.post(`${apiUrl}/api/orders`, {
         customerName: formData.name,
         phone: formData.phone,
         address: formData.address,

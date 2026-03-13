@@ -16,9 +16,10 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const prodRes = await axios.get('http://localhost:5000/api/products');
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const prodRes = await axios.get(`${apiUrl}/api/products`);
       setProducts(prodRes.data);
-      const orderRes = await axios.get('http://localhost:5000/api/orders');
+      const orderRes = await axios.get(`${apiUrl}/api/orders`);
       setOrders(orderRes.data);
       setLoading(false);
     } catch (err) {
@@ -47,10 +48,11 @@ const AdminDashboard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
       if (isEditing) {
-        await axios.put(`http://localhost:5000/api/products/${currentProduct._id}`, currentProduct);
+        await axios.put(`${apiUrl}/api/products/${currentProduct._id}`, currentProduct);
       } else {
-        await axios.post('http://localhost:5000/api/products', currentProduct);
+        await axios.post(`${apiUrl}/api/products`, currentProduct);
       }
       setShowAddModal(false);
       setIsEditing(false);
@@ -70,7 +72,8 @@ const AdminDashboard = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/products/${id}`);
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        await axios.delete(`${apiUrl}/api/products/${id}`);
         fetchData();
       } catch (err) {
         console.error(err);
@@ -80,7 +83,8 @@ const AdminDashboard = () => {
 
   const updateOrderStatus = async (id, status) => {
       try {
-          await axios.put(`http://localhost:5000/api/orders/${id}`, { status });
+          const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+          await axios.put(`${apiUrl}/api/orders/${id}`, { status });
           fetchData();
       } catch (err) {
           console.error(err);
