@@ -31,30 +31,76 @@ const Home = () => {
 
   return (
     <div className="fade-in">
-      {/* Hero Section */}
+      {/* Hero Section with Video Background */}
       <section style={{
-        background: 'linear-gradient(135deg, #2d5a27 0%, #1a3a17 100%)',
-        padding: '80px 0',
+        position: 'relative',
+        height: '85vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         color: 'white',
-        textAlign: 'center'
+        textAlign: 'center',
+        overflow: 'hidden'
       }}>
-        <div className="container">
-          <h1 style={{ fontSize: '3.5rem', marginBottom: '20px', lineHeight: '1.2' }}>
-            Empowering Farmers with <br /> <span style={{ color: 'var(--secondary)' }}>Superior Quality</span> Agra Products
+        {/* Video Element */}
+        <video 
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: -2
+          }}
+        >
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-sunrise-in-the-countryside-4235-large.mp4" type="video/mp4" />
+        </video>
+
+        {/* Dark Overlay for Text Visibility */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          zIndex: -1
+        }}></div>
+
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+          <h1 style={{ 
+            fontSize: 'clamp(2.5rem, 8vw, 4rem)', 
+            marginBottom: '20px', 
+            lineHeight: '1.1',
+            textShadow: '0 2px 10px rgba(0,0,0,0.3)'
+          }}>
+            Empowering Farmers with <br /> 
+            <span style={{ color: 'var(--secondary)' }}>Superior Quality</span> Agra Products
           </h1>
-          <p style={{ fontSize: '1.2rem', maxWidth: '700px', margin: '0 auto 40px', opacity: 0.9 }}>
+          <p style={{ 
+            fontSize: '1.2rem', 
+            maxWidth: '700px', 
+            margin: '0 auto 40px', 
+            opacity: 0.95,
+            textShadow: '0 1px 5px rgba(0,0,0,0.3)'
+          }}>
             Welcome to SRI JAGRUTHI TREDERS. We provide the best seeds, pesticides, and fertilizers 
             to ensure your crops thrive and your harvest is bountiful.
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
             <button 
               className="btn btn-primary" 
-              style={{ backgroundColor: 'var(--secondary)', color: 'black' }}
+              style={{ padding: '15px 40px', fontSize: '1.1rem', backgroundColor: 'var(--secondary)', color: 'black' }}
               onClick={() => document.getElementById('products-section').scrollIntoView({ behavior: 'smooth' })}
             >
               Shop Now <ArrowRight size={20} />
             </button>
-            <button className="btn" style={{ border: '2px solid white', color: 'white' }}>
+            <button className="btn" style={{ border: '2px solid white', color: 'white', padding: '15px 40px', fontSize: '1.1rem' }}>
               Our Story
             </button>
           </div>
